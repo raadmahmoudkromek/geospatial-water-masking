@@ -1,0 +1,30 @@
+# Define area of interest with min/max longitude and latitude - defaults to London Thames Eastuary area, should be good test case region.
+LONGITUDE_MIN: 0.45
+LATITUDE_MIN:  51.3
+LONGITUDE_MAX: 0.50
+LATITUDE_MAX: 51.35
+
+# Define the date range from which to take images
+DATE_MIN: '2023-07-01'
+DATE_MAX: '2023-07-10'
+
+#Define the size of the retrueved raster
+RASTER_X_SIZE: 2048
+RASTER_Y_SIZE: 2048
+
+# Define the evalscript to request the least cloudy image in the range
+SENT2_EVAL_SCRIPT: |
+  // VERSION=3
+  function setup() {
+      return {
+          input: ["B04", "B03", "B02"],
+          output: { bands: 3 }
+      };
+  }
+
+  function evaluatePixel(sample) {
+      return [sample.B04, sample.B03, sample.B02];
+  }
+
+#Define edge length of the extracted square patches
+PATCH_SIZE: 512
